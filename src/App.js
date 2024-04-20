@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css"
+import {
+  ActorProvider,
+  CandidAdapterProvider,
+  useAuth,
+} from "@ic-reactor/react"
+import { Balance } from "./Balance"
 
 function App() {
+  const { login, identity } = useAuth()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>IC Reactor</h1>
+      <p>{identity?.getPrincipal().toText()}</p>
+      <button onClick={login}>Login</button>
+      <CandidAdapterProvider>
+        <ActorProvider canisterId="ryjl3-tyaaa-aaaaa-aaaba-cai">
+          <Balance />
+        </ActorProvider>
+      </CandidAdapterProvider>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
